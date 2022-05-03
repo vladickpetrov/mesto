@@ -1,0 +1,299 @@
+@import url(../vendor/normalize.css);
+@import url(../vendor/fonts/InterWeb/inter.css);
+
+.page {
+    background: #000000;
+    font-family: Inter,Helvetica,Arial,sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    color: hsl(0, 0%, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    max-width: 880px;
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid #545454;
+    padding-top: 45px;
+    padding-bottom: 41px;
+}
+
+.main {
+    width: 100%;
+    max-width: 880px;
+}
+
+.header__logo {
+    background-image: url(../images/vectors/logo.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 142px;
+    height: 33px;
+}
+
+.profile {
+    padding-top: 40px;
+    padding-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile__full-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile__avatar {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+}
+
+.profile__info  {
+    max-width: 336px;
+    padding-left: 30px;
+    padding-right: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__name-edit-button {
+    display: flex;
+    align-items: baseline;
+}
+
+.profile__name {
+    padding-right: 18px;
+    margin: 0;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 1.14;
+}
+
+.profile__edit-button {
+    background-image: url(../images/vectors/EditButton.svg);
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.1s linear;
+}
+
+.profile__edit-button:hover {
+    opacity: 60%;
+    cursor: pointer;
+}
+
+.profile__profession {
+    margin: 0;
+    padding-top: 16px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.22;
+}
+
+.profile__add-button {
+    background-image: url(../images/vectors/AddButton.svg);
+    width: 150px;
+    height: 50px;
+    transition: opacity 0.1s linear;
+}
+
+.profile__add-button:hover {
+    opacity: 60%;
+    cursor: pointer;
+}
+
+
+.element {
+    width: 100%;
+}
+
+.element__grid {
+    margin: 0;
+    list-style: none;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 17px;
+}
+
+.element__item {
+    position: relative;
+    background: #FFFFFF;
+    width: 282px;
+    height: 361px;
+    border-radius: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.element__photo {
+    object-fit: cover;
+    width: 282px;
+    height: 282px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.element__title {
+    margin: 0;
+    padding-top: 25px;
+    padding-bottom: 31px;
+    padding-left: 21px;
+    max-width: 188px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000000;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.element__like-button {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    background-image: url(../images/vectors/HeartDisabled.svg);
+    width: 22px;
+    height: 19px;
+    transition: opacity 0.1s linear;
+}
+
+.element__like-button:hover {
+    opacity: 50%;
+    cursor: pointer;
+}
+
+.footer {
+    width: 100%;
+    max-width: 880px;
+}
+
+.footer__copyright {
+    margin: 0;
+    padding-top: 66px;
+    padding-bottom: 60px;
+    color: #545454;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.22;
+}
+
+@media screen and (max-width: 907px) {
+    .header__logo {
+    margin-left: 27px;
+    }
+
+    .profile {
+        padding-left: 19px;
+        padding-right: 19px;
+    }
+
+    .footer__copyright {
+        padding-left: 19px;
+    }
+
+    .element__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .element {
+        max-width: 582px;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 740px) {
+
+    .header {
+        padding-top: 28px;
+        padding-bottom: 32px;
+    }
+    
+    .header__logo {
+        width: 104px;
+        height: 25px;
+
+    }
+    
+    .profile__add-button {
+        background-image: url(../images/vectors/AddButtonBig.svg);
+        width: 282px;
+        height: 50px;
+    }
+
+    .profile__full-info {
+        width: 100%;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile {
+        padding-top: 42px;
+        padding-bottom: 36px;
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile__edit-button{
+        width: 18px;
+        height: 18px;
+        background-size: contain;
+    }
+
+    .profile__profession {
+        text-align: center;
+        padding-top: 14px;
+        padding-bottom: 36px;
+        padding-left: 19px;
+        padding-right: 19px;
+        font-size: 14px;
+        line-height: 1.21;
+    }
+
+    .profile__name-edit-button {
+        padding-left: 28px;
+        justify-content: center;
+    }
+
+    .profile__name {
+        padding-left: 0;
+        padding-right: 10px;
+        font-size: 27px;
+        line-height: 1.22;
+    }
+    
+    .profile__info {
+        padding-top: 26px;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer__copyright {
+        padding-top: 48px;
+        padding-bottom: 36px;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .element__grid {
+        grid-template-columns: repeat(1, 1fr);
+        justify-items: center;
+    }
+
+    .element {
+        max-width: 320px;
+    }
+}
