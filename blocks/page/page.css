@@ -1,4 +1,5 @@
 .page {
+    position: relative;
     background: #000000;
     font-family: Inter,Helvetica,Arial,sans-serif;
     -moz-osx-font-smoothing: grayscale;
