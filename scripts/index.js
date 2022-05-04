@@ -25,14 +25,6 @@ function formSubmitHandler(evt) {
     closePopup();
 }
 
-function checkEmptyForm() {
-    if (userNameOnForm.value == 0) {
-        userNameOnForm.style.borderBottom = red;
-    } else {
-        formSubmitHandler(evt);
-    }
-}
-
 editButton.addEventListener('click', openPopup);
 closeButton.addEventListener('click', closePopup);
-form.addEventListener('submit', checkEmptyForm);
+form.addEventListener('submit', formSubmitHandler);
