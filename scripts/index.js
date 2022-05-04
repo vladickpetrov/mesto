@@ -1,7 +1,6 @@
 const editButton = document.querySelector('.profile__edit-button');
 const closeButton = document.querySelector('.popup__close-button');
 const popUp = document.querySelector('.popup');
-const likeButton = document.querySelector('.element__like-button');
 const userNameOnPage = document.querySelector('.profile__name');
 const userProfessionOnPage = document.querySelector('.profile__profession');
 const userNameOnForm = document.querySelector('.popup__name');
