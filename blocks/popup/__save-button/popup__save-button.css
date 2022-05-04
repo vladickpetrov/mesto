@@ -4,6 +4,7 @@
     height: 50px;
     background-size: contain;
     transition: opacity 0.1s linear;
+    border: 0;
 }
 
 .popup__save-button:hover {
