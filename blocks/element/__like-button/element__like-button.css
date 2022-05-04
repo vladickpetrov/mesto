@@ -1,10 +1,9 @@
 .element__like-button {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
     background-image: url(../../../images/vectors/HeartDisabled.svg);
     width: 22px;
     height: 19px;
+    margin-bottom: 6px;
+    background-repeat: no-repeat;
     transition: opacity 0.1s linear;
 }
 

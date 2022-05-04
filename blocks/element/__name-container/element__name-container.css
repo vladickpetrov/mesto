@@ -1,0 +1,7 @@
+.element__name-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
