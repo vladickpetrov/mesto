@@ -26,66 +26,44 @@
             </section>
             <section class="element">
                 <ul class="element__grid">
-                    <li class="element__item">
-                        <img class="element__photo" src="./images/Element-Images/karachevsk.png" alt="Церковь Карачевска">
-                        <div class="element__name-container">
-                            <h3 class="element__title">Карачевск</h3>
-                            <button class="element__like-button clearbutton" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="element__item">
-                        <img class="element__photo" src="./images/Element-Images/elbrus1.png" alt="Человек на фоне Эльбруса">
-                        <div class="element__name-container">
-                            <h3 class="element__title">Гора Эльбрус</h3>
-                            <button class="element__like-button clearbutton" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="element__item">
-                        <img class="element__photo" src="./images/Element-Images/dombai1.png" alt="Фуникулер поднимается в гору">
-                        <div class="element__name-container">
-                            <h3 class="element__title">Домбай</h3>
-                            <button class="element__like-button clearbutton" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="element__item">
-                        <img class="element__photo" src="./images/Element-Images/elbrus2.png" alt="Лучи заката падают на Эльбрус">
-                        <div class="element__name-container">
-                            <h3 class="element__title">Гора Эльбрус</h3>
-                            <button class="element__like-button clearbutton" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="element__item">
-                        <img class="element__photo" src="./images/Element-Images/dombai2.png" alt="Дорога к горе Домбай">
-                        <div class="element__name-container">
-                            <h3 class="element__title">Домбай</h3>
-                            <button class="element__like-button clearbutton" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="element__item">
-                        <img class="element__photo" src="./images/Element-Images/cherkessk.png" alt="Мост к церкви в Карачаево-Черкесске">
-                        <div class="element__name-container">
-                            <h3 class="element__title">Карачаево-Черкесск</h3>
-                            <button class="element__like-button clearbutton" type="button"></button>
-                        </div>
-                    </li>
                 </ul>
             </section>
         </main>
         <footer class="footer">
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
-        <div class="popup">
-            <div class="popup__main-window">
-               <button class="popup__close-button clearbutton" type="button"></button>
-               <form method="get" name="edit-info" autocomplete="off" action="#" class="popup__form">
-                   <h2 class="popup__title">Редактировать профиль</h2>
-                   <input class="popup__input popup__name" type="text" name="name">
-                   <input class="popup__input popup__profession" type="text" name="profession">
-                   <button class="popup__save-button clearbutton" type="submit"></button>
-                </form>  
-            </div>
-            <div class="popup__background"></div>
-        </div>
+        <template id="popup">
+            <div class="popup">
+                <div class="popup__main-window">
+                   <button class="popup__close-button clearbutton" type="button"></button>
+                   <form class="popup__form" method="get" name="edit-info" autocomplete="off" action="#">
+                       <h2 class="popup__title"></h2>
+                       <input class="popup__input popup__name" type="text" name="name" placeholder="">
+                       <input class="popup__input popup__profession" type="text" name="profession" placeholder="">
+                       <button class="popup__save-button clearbutton" type="submit"></button>
+                    </form>  
+                </div>
+                <div class="popup__background"></div>
+        </template>
+        <template id="element">
+            <li class="element__item">
+                <button class="element__delete-button clearbutton" type="button"></button>
+                <img class="element__photo" src="" alt="">
+                <div class="element__name-container">
+                    <h3 class="element__title"></h3>
+                    <button class="element__like-button clearbutton" type="button"></button>
+                </div>
+            </li>
+        </template>
+        <template id="popup__full-image">
+            <div class="popup__full-image">
+                <div class="popup__full-image-window">
+                   <button class="popup__close-button clearbutton" type="button"></button>
+                   <img class="popup__image" src="" alt="">
+                   <h3 class="popup__picture-title"></h3>
+                </div>
+                <div class="popup__background"></div>
+        </template>
         <script src="./scripts/index.js"></script>
     </body>
 </html>

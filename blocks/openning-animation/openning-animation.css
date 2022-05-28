@@ -1,0 +1,14 @@
+@keyframes openning-animation {
+    from {
+        visibility: hidden;
+        opacity: 0;
+    }
+    to {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.openning-animation {
+    animation: openning-animation 0.2s linear;
+}
