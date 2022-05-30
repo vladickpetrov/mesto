@@ -27,6 +27,7 @@ function createCard(name, link) {
 
   cardElement.querySelector('.element__photo').src = link;
   cardElement.querySelector('.element__title').textContent = name;
+  cardElement.querySelector('.element__title').alt = name;
 
   const deleteButton = cardElement.querySelector('.element__delete-button');
   const likeButton = cardElement.querySelector('.element__like-button');
