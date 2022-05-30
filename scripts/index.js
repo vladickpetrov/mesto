@@ -88,16 +88,31 @@ function openPicturePopup() {
   linkOnForm.placeholder = 'Ссылка на картинку'
 
   pictureForm.addEventListener('submit', formSubmitHandlerPicture);
+
+  closePopupButton.addEventListener('click', function () {
+    closePopup(popUp);
+    pictureForm.removeEventListener('submit', formSubmitHandlerPicture);
+  });
 }
 
 function openNamePopup() {
   openPopup(popUp);
 
+  const nameForm = popUp.querySelector('.popup__form');
+
   popUp.querySelector('.popup__title').textContent = 'Редактировать профиль';
   nameOnForm.placeholder = 'Введите имя';
   linkOnForm.placeholder = 'Введите название профессии';
   nameOnForm.value = userNameOnPage.textContent
-  linkOnForm.value = userProfessionOnPage.textContent
+  linkOnForm.value = userProfessionOnPage.textContent;
+
+  closePopupButton.addEventListener('click', function () {
+    closePopup(popUp);
+    linkOnForm.value = '';
+    nameOnForm.value = '';
+    nameForm.removeEventListener('submit', formSubmitHandlerName);
+  });
+
 
   form.addEventListener('submit', formSubmitHandlerName);
 }
@@ -125,7 +140,6 @@ function formSubmitHandlerPicture(evt) {
         closePopup(popUp);
         return
     }
-    console.log(initialCardsArray);
     allElements.prepend(createCard(initialCardsArray[initialCardsArray.length - 1].name, initialCardsArray[initialCardsArray.length - 1].link));
     linkOnForm.value = '';
     nameOnForm.value = '';
@@ -137,12 +151,5 @@ addStartItemAction();
 
 addButton.addEventListener('click', openPicturePopup);
 editButton.addEventListener('click', openNamePopup);
-closePopupButton.addEventListener('click', function () {
-    closePopup(popUp);
-  });
-
-closePopupButton.addEventListener('click', function () {
-  closePopup(imagePopup);
-});
 
 
