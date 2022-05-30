@@ -2,7 +2,7 @@ const cardTamplate = document.querySelector('#element').content;
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const popUp = document.querySelector('.popup');
+const popUp = document.querySelector('.popup__main');
 
 const userNameOnPage = document.querySelector('.profile__name');
 const userProfessionOnPage = document.querySelector('.profile__profession');
