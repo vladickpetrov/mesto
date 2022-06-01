@@ -1,37 +1,41 @@
 const cardTamplate = document.querySelector('#element').content;
 
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
-const popUp = document.querySelector('.popup__main');
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAdd = document.querySelector('.profile__add-button');
+
+const imagePopUp = document.querySelector('.popup_image');
+const imagePopUpTitle = imagePopUp.querySelector('.popup__image-title');
+const imagePopupPicture = imagePopUp.querySelector('.popup__image');
+
+const namePopUp = document.querySelector('.popup_profile');
+const cardPopUp = document.querySelector('.popup_add-card');
+
+const buttonCloseImage = imagePopUp.querySelector('.popup__close-button');
+const buttonCloseName = namePopUp.querySelector('.popup__close-button');
+const buttonCloseCard = cardPopUp.querySelector('.popup__close-button');
 
 const userNameOnPage = document.querySelector('.profile__name');
 const userProfessionOnPage = document.querySelector('.profile__profession');
 const allElements = document.querySelector('.element__grid');
 
-const closePopupButton = popUp.querySelector('.popup__close-button');
+const nameForm = namePopUp.querySelector('.popup__form');
+const nameProfileForm = namePopUp.querySelector('.popup__name');
+const professionProfileForm = namePopUp.querySelector('.popup__profession');
 
-const imagePopup = document.querySelector('.popup__full-image');
-const closeImageButton = imagePopup.querySelector('.popup__close-button');
-
-let imagePopupTitle = document.querySelector('.popup__picture-title');
-let imagePopupImage = document.querySelector('.popup__image');
-
-const linkOnForm = popUp.querySelector('.popup__profession');
-const nameOnForm = popUp.querySelector('.popup__name');
-const form = popUp.querySelector('.popup__form');
-
-const popUpTitle = popUp.querySelector('.popup__title');
+const cardForm = cardPopUp.querySelector('.popup__form');
+const nameCardForm = cardPopUp.querySelector('.popup__name');
+const linkCardForm = cardPopUp.querySelector('.popup__profession');
 
 function createCard(name, link) {
   const cardElement = cardTamplate.querySelector('.element__item').cloneNode(true);
 
-  cardElement.querySelector('.element__photo').src = link;
-  cardElement.querySelector('.element__title').textContent = name;
-  cardElement.querySelector('.element__title').alt = name;
-
   const deleteButton = cardElement.querySelector('.element__delete-button');
   const likeButton = cardElement.querySelector('.element__like-button');
   const imageButton = cardElement.querySelector('.element__photo')
+
+  cardElement.querySelector('.element__photo').src = link;
+  cardElement.querySelector('.element__title').textContent = name;
+  cardElement.querySelector('.element__photo').alt = name;
 
   deleteButton.addEventListener('click', function () {
     deleteCard(cardElement);
@@ -61,14 +65,10 @@ function addStartItemAction() {
 } 
 
 function openImagePopup(name, link) {
-  imagePopupTitle.textContent = name;
-  imagePopupImage.src = link;
-  imagePopupImage.alt = name;
-  openPopup(imagePopup);
-
-  closeImageButton.addEventListener('click', function () {
-    closePopup(imagePopup);
-  }); 
+  imagePopUpTitle.textContent = name;
+  imagePopupPicture.src = link;
+  imagePopupPicture.alt = name;
+  openPopup(imagePopUp);
 }
 
 function openPopup(popup) {
@@ -80,77 +80,54 @@ function closePopup(popup) {
 }
 
 function openPicturePopup() {
-  openPopup(popUp);
-
-  const pictureForm = popUp.querySelector('.popup__form');
-
-  popUp.querySelector('.popup__title').textContent = 'Новое место';
-  nameOnForm.placeholder = 'Название'
-  linkOnForm.placeholder = 'Ссылка на картинку'
-
-  pictureForm.addEventListener('submit', formSubmitHandlerPicture);
-
-  closePopupButton.addEventListener('click', function () {
-    closePopup(popUp);
-    pictureForm.removeEventListener('submit', formSubmitHandlerPicture);
-  });
+  openPopup(cardPopUp);
 }
 
 function openNamePopup() {
-  openPopup(popUp);
+  openPopup(namePopUp);
 
-  const nameForm = popUp.querySelector('.popup__form');
-
-  popUp.querySelector('.popup__title').textContent = 'Редактировать профиль';
-  nameOnForm.placeholder = 'Введите имя';
-  linkOnForm.placeholder = 'Введите название профессии';
-  nameOnForm.value = userNameOnPage.textContent
-  linkOnForm.value = userProfessionOnPage.textContent;
-
-  closePopupButton.addEventListener('click', function () {
-    closePopup(popUp);
-    linkOnForm.value = '';
-    nameOnForm.value = '';
-    nameForm.removeEventListener('submit', formSubmitHandlerName);
-  });
-
-
-  form.addEventListener('submit', formSubmitHandlerName);
+  nameProfileForm.value = userNameOnPage.textContent;
+  professionProfileForm.value = userProfessionOnPage.textContent;
 }
 
 function formSubmitHandlerName(evt) {
   evt.preventDefault();
 
-  const nameForm = popUp.querySelector('.popup__form');
-
-  userNameOnPage.textContent = nameOnForm.value;
-  userProfessionOnPage.textContent = linkOnForm.value;
-  closePopup(popUp);
-  linkOnForm.value = '';
-  nameOnForm.value = '';
-  nameForm.removeEventListener('submit', formSubmitHandlerName);
+  userNameOnPage.textContent = nameProfileForm.value;
+  userProfessionOnPage.textContent = professionProfileForm.value;
+  closePopup(namePopUp);
+  nameProfileForm.value = '';
+  professionProfileForm.value = '';
 }
 
 function formSubmitHandlerPicture(evt) {
     evt.preventDefault();
 
-    const pictureForm = popUp.querySelector('.popup__form');
-
-    initialCardsArray.push({name: nameOnForm.value, link: linkOnForm.value});
-    if ((nameOnForm.value === '') || (linkOnForm.value === '')) {
-        closePopup(popUp);
-        return
-    }
-    allElements.prepend(createCard(initialCardsArray[initialCardsArray.length - 1].name, initialCardsArray[initialCardsArray.length - 1].link));
-    linkOnForm.value = '';
-    nameOnForm.value = '';
-    closePopup(popUp);
-    pictureForm.removeEventListener('submit', formSubmitHandlerPicture);
+    allElements.prepend(createCard(nameCardForm.value, linkCardForm.value));
+    linkCardForm.value = '';
+    nameCardForm.value = '';
+    closePopup(cardPopUp);
   }
 
 addStartItemAction();
 
-addButton.addEventListener('click', openPicturePopup);
-editButton.addEventListener('click', openNamePopup);
+buttonAdd.addEventListener('click', openPicturePopup);
+buttonEdit.addEventListener('click', openNamePopup);
 
+nameForm.addEventListener('submit', formSubmitHandlerName);
+cardForm.addEventListener('submit', formSubmitHandlerPicture);
+
+buttonCloseImage.addEventListener('click', function () {
+  closePopup(imagePopUp);
+});
+
+buttonCloseName.addEventListener('click', function () {
+  closePopup(namePopUp);
+});
+
+buttonCloseCard.addEventListener('click', function () {
+  closePopup(cardPopUp);
+  nameCardForm.value = '';
+  linkCardForm.value = '';
+});
 
