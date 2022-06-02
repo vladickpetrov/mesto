@@ -31,11 +31,11 @@ function createCard(name, link) {
 
   const deleteButton = cardElement.querySelector('.element__delete-button');
   const likeButton = cardElement.querySelector('.element__like-button');
-  const imageButton = cardElement.querySelector('.element__photo')
+  const imageElement = cardElement.querySelector('.element__photo')
 
-  cardElement.querySelector('.element__photo').src = link;
+  imageElement.src = link;
   cardElement.querySelector('.element__title').textContent = name;
-  cardElement.querySelector('.element__photo').alt = name;
+  imageElement.alt = name;
 
   deleteButton.addEventListener('click', function () {
     deleteCard(cardElement);
@@ -43,7 +43,7 @@ function createCard(name, link) {
   likeButton.addEventListener('click', function () {
     likeCard(likeButton);
   });
-  imageButton.addEventListener('click', function () {
+  imageElement.addEventListener('click', function () {
     openImagePopup(name, link);
   });
 
@@ -80,6 +80,8 @@ function closePopup(popup) {
 }
 
 function openPicturePopup() {
+  linkCardForm.value = '';
+  nameCardForm.value = '';
   openPopup(cardPopUp);
 }
 
@@ -96,16 +98,12 @@ function formSubmitHandlerName(evt) {
   userNameOnPage.textContent = nameProfileForm.value;
   userProfessionOnPage.textContent = professionProfileForm.value;
   closePopup(namePopUp);
-  nameProfileForm.value = '';
-  professionProfileForm.value = '';
 }
 
 function formSubmitHandlerPicture(evt) {
     evt.preventDefault();
 
     allElements.prepend(createCard(nameCardForm.value, linkCardForm.value));
-    linkCardForm.value = '';
-    nameCardForm.value = '';
     closePopup(cardPopUp);
   }
 
@@ -127,7 +125,5 @@ buttonCloseName.addEventListener('click', function () {
 
 buttonCloseCard.addEventListener('click', function () {
   closePopup(cardPopUp);
-  nameCardForm.value = '';
-  linkCardForm.value = '';
 });
 
