@@ -48,7 +48,14 @@
 @import url(../blocks/popup/_profile/popup_profile.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
-
-
+@import url(../blocks/popup/__input/_type_error/popup__input_type_error.css);
+@import url(../blocks/popup/__error/popup__error.css);
+@import url(../blocks/popup/__error/_visible/popup__error_visible.css);
+@import url(../blocks/popup/__save-button/_disabled/popup__save-button_disabled.css);
 
 @import url(../blocks/clearbutton/clearbutton.css);
+
+@import url(../blocks/input-link-error/input-link-error.css);
+@import url(../blocks/input-name-error/input-name-error.css);
+@import url(../blocks/input-profession-error/input-profession-error.css);
+@import url(../blocks/input-title-error/input-title-error.css);

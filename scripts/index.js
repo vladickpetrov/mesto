@@ -14,6 +14,10 @@ const buttonCloseImage = imagePopUp.querySelector('.popup__close-button');
 const buttonCloseName = namePopUp.querySelector('.popup__close-button');
 const buttonCloseCard = cardPopUp.querySelector('.popup__close-button');
 
+const overlayImage = imagePopUp.querySelector('.popup__background');
+const overlayName = namePopUp.querySelector('.popup__background');
+const overlayCard = cardPopUp.querySelector('.popup__background');
+
 const userNameOnPage = document.querySelector('.profile__name');
 const userProfessionOnPage = document.querySelector('.profile__profession');
 const allElements = document.querySelector('.element__grid');
@@ -31,7 +35,7 @@ function createCard(name, link) {
 
   const deleteButton = cardElement.querySelector('.element__delete-button');
   const likeButton = cardElement.querySelector('.element__like-button');
-  const imageElement = cardElement.querySelector('.element__photo')
+  const imageElement = cardElement.querySelector('.element__photo');
 
   imageElement.src = link;
   cardElement.querySelector('.element__title').textContent = name;
@@ -48,7 +52,23 @@ function createCard(name, link) {
   });
 
   return cardElement
- } 
+ }
+
+function addEscListener(popup) {
+  document.addEventListener('keydown', function(evt) {
+    if (evt.keyCode === 27) {
+      closePopup(popup);
+    }
+  });
+}
+
+function removeEscListener(popup) {
+  document.removeEventListener('keydown', function(evt) {
+    if (evt.keyCode === 27) {
+      closePopup(popup);
+    }
+  });
+}
 
 function deleteCard(card) {
   card.remove(); 
@@ -73,10 +93,12 @@ function openImagePopup(name, link) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  addEscListener(popup);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  removeEscListener(popup);
 }
 
 function openPicturePopup() {
@@ -101,11 +123,11 @@ function formSubmitHandlerName(evt) {
 }
 
 function formSubmitHandlerPicture(evt) {
-    evt.preventDefault();
+  evt.preventDefault();
 
-    allElements.prepend(createCard(nameCardForm.value, linkCardForm.value));
-    closePopup(cardPopUp);
-  }
+  allElements.prepend(createCard(nameCardForm.value, linkCardForm.value));
+  closePopup(cardPopUp);
+}
 
 addStartItemAction();
 
@@ -127,3 +149,14 @@ buttonCloseCard.addEventListener('click', function () {
   closePopup(cardPopUp);
 });
 
+overlayImage.addEventListener('click', function () {
+  closePopup(imagePopUp);
+});
+
+overlayName.addEventListener('click', function () {
+  closePopup(namePopUp);
+});
+
+overlayCard.addEventListener('click', function () {
+  closePopup(cardPopUp);
+});

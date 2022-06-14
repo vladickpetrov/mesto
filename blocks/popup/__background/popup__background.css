@@ -1,5 +1,6 @@
 .popup__background {
     position: absolute;
+    cursor: pointer;
     top: 0;
     right: 0;
     width: 100%;

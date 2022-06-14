@@ -1,0 +1,19 @@
+.popup__save-button_disabled {
+    background-image: url(../../../../images/vectors/SubmitButtonInactive.svg);
+    background-repeat: no-repeat;
+    cursor: default;
+}
+
+@media screen and (max-width: 530px) {
+    .popup__save-button_disabled {
+        background-size: 100% 100%;
+        width: 238px;
+        height: 46px;
+    }
+}
+
+.popup__save-button_disabled:hover {
+    pointer-events: none;
+    cursor: default;
+    opacity: 100%;
+}
