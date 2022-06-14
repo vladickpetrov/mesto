@@ -10,14 +10,6 @@ const imagePopupPicture = imagePopUp.querySelector('.popup__image');
 const namePopUp = document.querySelector('.popup_profile');
 const cardPopUp = document.querySelector('.popup_add-card');
 
-const buttonCloseImage = imagePopUp.querySelector('.popup__close-button');
-const buttonCloseName = namePopUp.querySelector('.popup__close-button');
-const buttonCloseCard = cardPopUp.querySelector('.popup__close-button');
-
-const overlayImage = imagePopUp.querySelector('.popup__background');
-const overlayName = namePopUp.querySelector('.popup__background');
-const overlayCard = cardPopUp.querySelector('.popup__background');
-
 const userNameOnPage = document.querySelector('.profile__name');
 const userProfessionOnPage = document.querySelector('.profile__profession');
 const allElements = document.querySelector('.element__grid');
@@ -29,6 +21,7 @@ const professionProfileForm = namePopUp.querySelector('.popup__profession');
 const cardForm = cardPopUp.querySelector('.popup__form');
 const nameCardForm = cardPopUp.querySelector('.popup__name');
 const linkCardForm = cardPopUp.querySelector('.popup__profession');
+const cardSaveButton = cardPopUp.querySelector('.popup__save-button');
 
 function createCard(name, link) {
   const cardElement = cardTamplate.querySelector('.element__item').cloneNode(true);
@@ -54,20 +47,11 @@ function createCard(name, link) {
   return cardElement
  }
 
-function addEscListener(popup) {
-  document.addEventListener('keydown', function(evt) {
-    if (evt.keyCode === 27) {
-      closePopup(popup);
-    }
-  });
-}
-
-function removeEscListener(popup) {
-  document.removeEventListener('keydown', function(evt) {
-    if (evt.keyCode === 27) {
-      closePopup(popup);
-    }
-  });
+function closeWithEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
 }
 
 function deleteCard(card) {
@@ -93,12 +77,12 @@ function openImagePopup(name, link) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  addEscListener(popup);
+  document.addEventListener('keydown', closeWithEscape);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  removeEscListener(popup);
+  document.removeEventListener('keydown', closeWithEscape);
 }
 
 function openPicturePopup() {
@@ -114,7 +98,7 @@ function openNamePopup() {
   professionProfileForm.value = userProfessionOnPage.textContent;
 }
 
-function formSubmitHandlerName(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   userNameOnPage.textContent = nameProfileForm.value;
@@ -122,11 +106,13 @@ function formSubmitHandlerName(evt) {
   closePopup(namePopUp);
 }
 
-function formSubmitHandlerPicture(evt) {
+function handlePictureFormSubmit(evt) {
   evt.preventDefault();
 
   allElements.prepend(createCard(nameCardForm.value, linkCardForm.value));
   closePopup(cardPopUp);
+  cardSaveButton.classList.add('popup__save-button_disabled');
+  cardSaveButton.setAttribute('disabled', true);
 }
 
 addStartItemAction();
@@ -134,29 +120,15 @@ addStartItemAction();
 buttonAdd.addEventListener('click', openPicturePopup);
 buttonEdit.addEventListener('click', openNamePopup);
 
-nameForm.addEventListener('submit', formSubmitHandlerName);
-cardForm.addEventListener('submit', formSubmitHandlerPicture);
+nameForm.addEventListener('submit', handleProfileFormSubmit);
+cardForm.addEventListener('submit', handlePictureFormSubmit);
 
-buttonCloseImage.addEventListener('click', function () {
-  closePopup(imagePopUp);
-});
+const popups = document.querySelectorAll('.popup')
 
-buttonCloseName.addEventListener('click', function () {
-  closePopup(namePopUp);
-});
-
-buttonCloseCard.addEventListener('click', function () {
-  closePopup(cardPopUp);
-});
-
-overlayImage.addEventListener('click', function () {
-  closePopup(imagePopUp);
-});
-
-overlayName.addEventListener('click', function () {
-  closePopup(namePopUp);
-});
-
-overlayCard.addEventListener('click', function () {
-  closePopup(cardPopUp);
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if ((evt.target.classList.contains('popup__close-button')) || (evt.target.classList.contains('popup__background'))) {
+      closePopup(popup);
+    }
+  });
 });
