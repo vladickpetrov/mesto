@@ -1,4 +1,29 @@
-const cardTamplate = document.querySelector('#element').content;
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+]; 
 
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -23,56 +48,11 @@ const nameCardForm = cardPopUp.querySelector('.popup__name');
 const linkCardForm = cardPopUp.querySelector('.popup__profession');
 const cardSaveButton = cardPopUp.querySelector('.popup__save-button');
 
-function createCard(name, link) {
-  const cardElement = cardTamplate.querySelector('.element__item').cloneNode(true);
-
-  const deleteButton = cardElement.querySelector('.element__delete-button');
-  const likeButton = cardElement.querySelector('.element__like-button');
-  const imageElement = cardElement.querySelector('.element__photo');
-
-  imageElement.src = link;
-  cardElement.querySelector('.element__title').textContent = name;
-  imageElement.alt = name;
-
-  deleteButton.addEventListener('click', function () {
-    deleteCard(cardElement);
-  }); 
-  likeButton.addEventListener('click', function () {
-    likeCard(likeButton);
-  });
-  imageElement.addEventListener('click', function () {
-    openImagePopup(name, link);
-  });
-
-  return cardElement
- }
-
 function closeWithEscape(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
-}
-
-function deleteCard(card) {
-  card.remove(); 
-}
-
-function likeCard(like) {
-  like.classList.toggle('element__like-button_active');
-}
-
-function addStartItemAction() { 
-  initialCards.forEach(item => { 
-    allElements.prepend(createCard(item.name, item.link))
-  }); 
-} 
-
-function openImagePopup(name, link) {
-  imagePopUpTitle.textContent = name;
-  imagePopupPicture.src = link;
-  imagePopupPicture.alt = name;
-  openPopup(imagePopUp);
 }
 
 function openPopup(popup) {
@@ -109,13 +89,14 @@ function handleProfileFormSubmit(evt) {
 function handlePictureFormSubmit(evt) {
   evt.preventDefault();
 
-  allElements.prepend(createCard(nameCardForm.value, linkCardForm.value));
+  const card = new Card(nameCardForm.value, linkCardForm.value, '#element');
+  const cardElement = card.generateCard();
+  allElements.prepend(cardElement);
+  
   closePopup(cardPopUp);
   cardSaveButton.classList.add('popup__save-button_disabled');
   cardSaveButton.setAttribute('disabled', true);
 }
-
-addStartItemAction();
 
 buttonAdd.addEventListener('click', openPicturePopup);
 buttonEdit.addEventListener('click', openNamePopup);
@@ -132,3 +113,39 @@ popups.forEach((popup) => {
     }
   });
 });
+
+function startValidationAction() {
+  const formList = document.querySelectorAll('.popup__form');
+  const formListArray = Array.from(formList);
+  formListArray.forEach((form) => {
+      const validForm = new FormValidator({
+          formSelector: '.popup__form',
+          inputSelector: '.popup__input',
+          submitButtonSelector: '.popup__save-button',
+          inactiveButtonClass: 'popup__save-button_disabled',
+          inputErrorClass: 'popup__input_type_error',
+          errorClass: '-error',
+          errorClassVisible: 'popup__error_visible'
+      }, form)
+      form.addEventListener('submit', function (evt) {
+             evt.preventDefault();
+      });
+      validForm.enableValidation();
+  });
+}
+
+function addStartItemAction() { 
+  initialCards.forEach(item => { 
+    const card = new Card(item.name, item.link, '#element');
+    const cardElement = card.generateCard();
+    allElements.prepend(cardElement);
+  }); 
+} 
+
+addStartItemAction();
+startValidationAction();
+
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+
+export { imagePopUp, imagePopUpTitle, imagePopupPicture, openPopup}
