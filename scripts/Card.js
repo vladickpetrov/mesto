@@ -16,9 +16,12 @@ export class Card {
     generateCard() {
       this._element = this._getTemplate();
       this._setEventListeners();
-  
-      this._element.querySelector('.element__photo').src = this._link;
+
       this._element.querySelector('.element__title').textContent = this._name;
+
+      this._image = this._element.querySelector('.element__photo');
+      this._image.src = this._link;
+      this._image.alt = this._name;
   
       return this._element
     }
@@ -48,6 +51,7 @@ export class Card {
   
     _deleteCard() {
       this._element.remove(); 
+      this._element = null;
     }
   }
 

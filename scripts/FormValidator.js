@@ -21,17 +21,17 @@ export class FormValidator {
         const inputList = this._form.querySelectorAll(this._inputSelector);
         this.inputListArray = Array.from(inputList);
         this._buttonElement = this._form.querySelector(this._submitButtonSelector);
-        this._toggleButtonState();
+        this.toggleButtonState();
         this.inputListArray.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._inputElement = inputElement;
                 this._checkInputValidity();
-                this._toggleButtonState();
+                this.toggleButtonState();
             });
         });
     }
 
-    _toggleButtonState() {
+    toggleButtonState() {
         if (this._hasInvalidInput()) {
             this._buttonElement.classList.add(this._inactiveButtonClass);
             this._buttonElement.setAttribute('disabled', true);

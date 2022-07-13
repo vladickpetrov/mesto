@@ -25,6 +25,16 @@ const initialCards = [
   }
 ]; 
 
+const configValid = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: '-error',
+  errorClassVisible: 'popup__error_visible'
+}
+
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 
@@ -46,7 +56,11 @@ const professionProfileForm = namePopUp.querySelector('.popup__profession');
 const cardForm = cardPopUp.querySelector('.popup__form');
 const nameCardForm = cardPopUp.querySelector('.popup__name');
 const linkCardForm = cardPopUp.querySelector('.popup__profession');
-const cardSaveButton = cardPopUp.querySelector('.popup__save-button');
+
+const validNameForm = new FormValidator(configValid, nameForm)
+validNameForm.enableValidation();
+const validCardForm = new FormValidator(configValid, cardForm)
+validCardForm.enableValidation();
 
 function closeWithEscape(evt) {
   if (evt.key === 'Escape') {
@@ -88,14 +102,10 @@ function handleProfileFormSubmit(evt) {
 
 function handlePictureFormSubmit(evt) {
   evt.preventDefault();
-
-  const card = new Card(nameCardForm.value, linkCardForm.value, '#element');
-  const cardElement = card.generateCard();
-  allElements.prepend(cardElement);
   
+  createCard(nameCardForm.value, linkCardForm.value)
   closePopup(cardPopUp);
-  cardSaveButton.classList.add('popup__save-button_disabled');
-  cardSaveButton.setAttribute('disabled', true);
+  validCardForm.toggleButtonState();
 }
 
 buttonAdd.addEventListener('click', openPicturePopup);
@@ -114,36 +124,19 @@ popups.forEach((popup) => {
   });
 });
 
-function startValidationAction() {
-  const formList = document.querySelectorAll('.popup__form');
-  const formListArray = Array.from(formList);
-  formListArray.forEach((form) => {
-      const validForm = new FormValidator({
-          formSelector: '.popup__form',
-          inputSelector: '.popup__input',
-          submitButtonSelector: '.popup__save-button',
-          inactiveButtonClass: 'popup__save-button_disabled',
-          inputErrorClass: 'popup__input_type_error',
-          errorClass: '-error',
-          errorClassVisible: 'popup__error_visible'
-      }, form)
-      form.addEventListener('submit', function (evt) {
-             evt.preventDefault();
-      });
-      validForm.enableValidation();
-  });
-}
-
 function addStartItemAction() { 
   initialCards.forEach(item => { 
-    const card = new Card(item.name, item.link, '#element');
-    const cardElement = card.generateCard();
-    allElements.prepend(cardElement);
+    createCard(item.name, item.link);
   }); 
 } 
 
+function createCard(name, link) {
+  const card = new Card(name, link, '#element');
+  const cardElement = card.generateCard();
+  allElements.prepend(cardElement);
+}
+
 addStartItemAction();
-startValidationAction();
 
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
