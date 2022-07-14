@@ -80,8 +80,6 @@ function closePopup(popup) {
 }
 
 function openPicturePopup() {
-  linkCardForm.value = '';
-  nameCardForm.value = '';
   openPopup(cardPopUp);
 }
 
@@ -103,8 +101,10 @@ function handleProfileFormSubmit(evt) {
 function handlePictureFormSubmit(evt) {
   evt.preventDefault();
   
-  createCard(nameCardForm.value, linkCardForm.value)
+  addCard(createCard(nameCardForm.value, linkCardForm.value));
   closePopup(cardPopUp);
+  linkCardForm.value = '';
+  nameCardForm.value = '';
   validCardForm.toggleButtonState();
 }
 
@@ -126,13 +126,16 @@ popups.forEach((popup) => {
 
 function addStartItemAction() { 
   initialCards.forEach(item => { 
-    createCard(item.name, item.link);
+    addCard(createCard(item.name, item.link));
   }); 
 } 
 
 function createCard(name, link) {
   const card = new Card(name, link, '#element');
-  const cardElement = card.generateCard();
+  return card.generateCard();
+}
+
+function addCard(cardElement) {
   allElements.prepend(cardElement);
 }
 
