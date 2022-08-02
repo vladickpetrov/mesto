@@ -1,3 +1,4 @@
+import { Popup } from '../components/Popup'
 export class PopupWithForm extends Popup {
   constructor(popupSelector, { renderer }){
       super(popupSelector);
@@ -13,11 +14,4 @@ export class PopupWithForm extends Popup {
       super.setEventListeners();
       this._renderer();
   }
-
-  close() {
-    super.close();
-    this._popup = null;
-  }
 }
-
-import { Popup } from '../components/Popup'

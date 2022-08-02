@@ -38,16 +38,8 @@ export const initialCards = [
   export const buttonEdit = document.querySelector('.profile__edit-button');
   export const buttonAdd = document.querySelector('.profile__add-button');
   
-  const imagePopUp = document.querySelector('.popup_image');
-  const imagePopUpTitle = imagePopUp.querySelector('.popup__image-title');
-  const imagePopupPicture = imagePopUp.querySelector('.popup__image');
-  
   const namePopUp = document.querySelector('.popup_profile');
   const cardPopUp = document.querySelector('.popup_add-card');
   
   export const nameForm = namePopUp.querySelector('.popup__form');
   export const cardForm = cardPopUp.querySelector('.popup__form');
-  export { 
-    imagePopUpTitle, 
-    imagePopupPicture,
- }
