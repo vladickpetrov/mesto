@@ -1,8 +1,9 @@
 export class Card {
-    constructor(name, link, template) {
+    constructor(name, link, template, { handleCardClick }) {
       this._name = name;
       this._link = link;
-      this._template = document.querySelector(template).content;;
+      this._template = document.querySelector(template).content;
+      this._handleCardClick = handleCardClick;
     }
   
     _getTemplate() {
@@ -43,16 +44,11 @@ export class Card {
     }
   
     _openImagePopup() {
-      imagePopUpTitle.textContent = this._name;
-      imagePopupPicture.src = this._link;
-      imagePopupPicture.alt = this._name;
-      openPopup(imagePopUp);
+      this._handleCardClick();
     }
   
     _deleteCard() {
       this._element.remove(); 
       this._element = null;
     }
-  }
-
-  import { imagePopUp, imagePopupPicture, imagePopUpTitle, openPopup} from "./index.js";
+}
