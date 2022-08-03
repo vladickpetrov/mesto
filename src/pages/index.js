@@ -14,15 +14,17 @@ function createCard(name, link) {
     }
   });
   const cardElement = card.generateCard();
-  cardList.setItem(cardElement);
+  return cardElement
 }
 
 const image = new PopupWithImage('.popup_image');
 image.setEventListeners();
 
 const validCardForm = new FormValidator(configValid, cardForm);
+validCardForm.enableValidation();
 
 const validNameForm = new FormValidator(configValid, nameForm);
+validNameForm.enableValidation();
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
@@ -31,20 +33,16 @@ const userInfo = new UserInfo({
 
 const newCardPopup = new PopupWithForm('.popup_add-card', {
   renderer: () => {
-    validCardForm.enableValidation();
     validCardForm.toggleButtonState();
-    newCardPopup._getInputValues()
   }
 });
 newCardPopup.setEventListeners();
 
 const newNamePopup = new PopupWithForm('.popup_profile', {
   renderer: () => {
-    validNameForm.enableValidation();
-    newNamePopup._getInputValues();
     const pageInfo = userInfo.getUserInfo()
-    newNamePopup.inputName.value = pageInfo.userName;
-    newNamePopup.inputLink.value = pageInfo.userProfession;
+    newNamePopup._getInputValues().string0.value = pageInfo.userName;
+    newNamePopup._getInputValues().string1.value = pageInfo.userProfession;
   }
 });
 newNamePopup.setEventListeners();
@@ -52,7 +50,7 @@ newNamePopup.setEventListeners();
 const cardList = new Section({
   data: initialCards,
   renderer: (item) => {
-    createCard(item.name, item.link)
+    cardList.setItem(createCard(item.name, item.link));
     }
 }, '.element__grid');
 cardList.renderItems();
@@ -66,14 +64,14 @@ buttonEdit.addEventListener('click', () => {
 });
 
 cardForm.addEventListener('submit', () => {
-  createCard(newCardPopup.inputName.value, newCardPopup.inputLink.value)
-  newCardPopup.inputName.value = ''; 
-  newCardPopup.inputLink.value = '';
+  cardList.setItem(createCard(newCardPopup._getInputValues().string0.value, newCardPopup._getInputValues().string1.value));
+  newCardPopup._getInputValues().string0.value = ''; 
+  newCardPopup._getInputValues().string1.value = '';
   newCardPopup.close();
 });
 
 nameForm.addEventListener('submit', () => {
-  userInfo.setUserInfo(newNamePopup.inputName.value, newNamePopup.inputLink.value);
+  userInfo.setUserInfo(newNamePopup._getInputValues().string0.value, newNamePopup._getInputValues().string0.value);
   validNameForm.toggleButtonState();
   newNamePopup.close()
 })

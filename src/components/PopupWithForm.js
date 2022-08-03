@@ -6,8 +6,13 @@ export class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    this.inputName = this._popup.querySelector('.popup__name');
-    this.inputLink = this._popup.querySelector('.popup__profession');
+    const inputs = {};
+    const inputsArray = Array.from(this._popup.querySelectorAll('.popup__input'));
+    inputsArray.forEach((inputElement, id) => {
+      inputs[`string${id}`] = inputElement;
+    });
+    console.log(inputs)
+    return inputs
   }
 
   setEventListeners() {
