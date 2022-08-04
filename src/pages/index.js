@@ -32,17 +32,20 @@ const userInfo = new UserInfo({
 });
 
 const newCardPopup = new PopupWithForm('.popup_add-card', {
-  renderer: () => {
-    validCardForm.toggleButtonState();
+  renderer: (inputs) => {
+    newCardPopup.nameInput = inputs.string0;
+    newCardPopup.linkInput = inputs.string1;
   }
 });
 newCardPopup.setEventListeners();
 
 const newNamePopup = new PopupWithForm('.popup_profile', {
-  renderer: () => {
+  renderer: (inputs) => {
+    newNamePopup.nameInput = inputs.string0;
+    newNamePopup.linkInput = inputs.string1;
     const pageInfo = userInfo.getUserInfo()
-    newNamePopup._getInputValues().string0.value = pageInfo.userName;
-    newNamePopup._getInputValues().string1.value = pageInfo.userProfession;
+    newNamePopup.nameInput.value = pageInfo.userName;
+    newNamePopup.linkInput.value = pageInfo.userProfession;
   }
 });
 newNamePopup.setEventListeners();
@@ -57,21 +60,22 @@ cardList.renderItems();
 
 buttonAdd.addEventListener('click', () => {
   newCardPopup.open();
+  validCardForm.toggleButtonState();
 });
 
 buttonEdit.addEventListener('click', () => {
   newNamePopup.open();
+  validNameForm.toggleButtonState();
 });
 
 cardForm.addEventListener('submit', () => {
-  cardList.setItem(createCard(newCardPopup._getInputValues().string0.value, newCardPopup._getInputValues().string1.value));
-  newCardPopup._getInputValues().string0.value = ''; 
-  newCardPopup._getInputValues().string1.value = '';
+  cardList.setItem(createCard(newCardPopup.nameInput.value, newCardPopup.linkInput.value));
+  newCardPopup.nameInput.value = ''; 
+  newCardPopup.linkInput.value = '';
   newCardPopup.close();
 });
 
 nameForm.addEventListener('submit', () => {
-  userInfo.setUserInfo(newNamePopup._getInputValues().string0.value, newNamePopup._getInputValues().string0.value);
-  validNameForm.toggleButtonState();
+  userInfo.setUserInfo(newNamePopup.nameInput.value, newNamePopup.nameInput.value);
   newNamePopup.close()
 })
