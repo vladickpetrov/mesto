@@ -32,20 +32,22 @@ const userInfo = new UserInfo({
 });
 
 const newCardPopup = new PopupWithForm('.popup_add-card', {
-  renderer: (inputs) => {
-    newCardPopup.nameInput = inputs.string0;
-    newCardPopup.linkInput = inputs.string1;
+  renderer: (formInputs) => {
+    cardList.setItem(createCard(formInputs.string0, formInputs.string1));
+    newCardPopup.inputs[0].value = '';
+    newCardPopup.inputs[1].value = '';
+    newCardPopup.close();
   }
 });
 newCardPopup.setEventListeners();
 
 const newNamePopup = new PopupWithForm('.popup_profile', {
-  renderer: (inputs) => {
-    newNamePopup.nameInput = inputs.string0;
-    newNamePopup.linkInput = inputs.string1;
-    const pageInfo = userInfo.getUserInfo()
-    newNamePopup.nameInput.value = pageInfo.userName;
-    newNamePopup.linkInput.value = pageInfo.userProfession;
+  renderer: (formInputs) => {
+    userInfo.setUserInfo(formInputs.string0, formInputs.string1);
+    const pageInfo = userInfo.getUserInfo();
+    newNamePopup.inputs[0].value = pageInfo.userName;
+    newNamePopup.inputs[1].value = pageInfo.userProfession;
+    newNamePopup.close();
   }
 });
 newNamePopup.setEventListeners();
@@ -67,15 +69,3 @@ buttonEdit.addEventListener('click', () => {
   newNamePopup.open();
   validNameForm.toggleButtonState();
 });
-
-cardForm.addEventListener('submit', () => {
-  cardList.setItem(createCard(newCardPopup.nameInput.value, newCardPopup.linkInput.value));
-  newCardPopup.nameInput.value = ''; 
-  newCardPopup.linkInput.value = '';
-  newCardPopup.close();
-});
-
-nameForm.addEventListener('submit', () => {
-  userInfo.setUserInfo(newNamePopup.nameInput.value, newNamePopup.nameInput.value);
-  newNamePopup.close()
-})
