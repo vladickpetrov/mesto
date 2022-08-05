@@ -69,5 +69,3 @@ buttonEdit.addEventListener('click', () => {
   newNamePopup.open();
   validNameForm.toggleButtonState();
 });
-
-console.log('посхалочка');
