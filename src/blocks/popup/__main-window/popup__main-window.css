@@ -9,6 +9,14 @@
     border-radius: 10px;
 }
 
+.popup_sure .popup__main-window {
+    max-height: 181px;
+}
+
+.popup_avatar .popup__main-window {
+    max-height: 272px;
+}
+
 @media screen and (max-width: 530px) {
     .popup__main-window {
         top: calc((100% - 322px) / 2);

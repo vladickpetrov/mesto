@@ -12,14 +12,17 @@
         <main class="main">
             <section class="profile">
                 <div class="profile__full-info">
-                  <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="Аватар пользователя">
-                  <div class="profile__info">
-                    <div class="profile__name-edit-button">
-                      <h1 class="profile__name">Жак-Ив Кусто</h1>
-                      <button class="profile__edit-button clearbutton" type="button"></button>
+                    <div class="profile__avatar">
+                        <div class="profile__avatar-blur"></div>
+                         <img class="profile__avatar-picture" src="" alt="Аватар пользователя">
                     </div>
-                    <p class="profile__profession">Исследователь океана</p>
-                  </div>
+                    <div class="profile__info">
+                        <div class="profile__name-edit-button">
+                        <h1 class="profile__name"></h1>
+                        <button class="profile__edit-button clearbutton" type="button"></button>
+                        </div>
+                    <p class="profile__profession"></p>
+                    </div>
                 </div>
                 <button class="profile__add-button clearbutton" type="button"></button>
             </section>
@@ -28,6 +31,31 @@
                 </ul>
             </section>
         </main>
+        <!-- Popup which appears when user presses delete button -->
+        <div class="popup popup_sure">
+            <div class="popup__main-window">
+               <button class="popup__close-button clearbutton" type="button"></button>
+               <form class="popup__form" novalidate method="get" name="edit-info" autocomplete="off" action="#">
+                   <h2 class="popup__title">Вы уверены?</h2>
+                   <button class="popup__save-button clearbutton" type="submit"></button>
+                </form>  
+            </div>
+            <div class="popup__background"></div>
+        </div>
+        <!-- Popup for avatar change -->
+        <div class="popup popup_avatar">
+            <div class="popup__main-window">
+               <button class="popup__close-button clearbutton" type="button"></button>
+               <form class="popup__form" novalidate method="get" name="edit-info" autocomplete="off" action="#">
+                   <h2 class="popup__title">Обновить аватар</h2>
+                   <input class="popup__input popup__profession" id="input-link" type="url" name="profession" placeholder="Ссылка на аватар" required>
+                   <span class="popup__error input-link-error"></span>
+                   <button class="popup__save-button clearbutton" type="submit"></button>
+                </form>  
+            </div>
+            <div class="popup__background"></div>
+        </div>
+        <!-- Popup which appears when user presses on card picture -->
         <div class="popup popup_image">
             <div class="popup__image-window">
                <button class="popup__close-button clearbutton" type="button"></button>
@@ -36,6 +64,7 @@
             </div>
             <div class="popup__background popup__background_image"></div>
         </div>
+        <!-- Popup for name and profession change -->
         <div class="popup popup_profile">
             <div class="popup__main-window">
                <button class="popup__close-button clearbutton" type="button"></button>
@@ -50,6 +79,7 @@
             </div>
             <div class="popup__background"></div>
         </div>
+        <!-- Popup for card addition -->
         <div class="popup popup_add-card">
             <div class="popup__main-window">
                <button class="popup__close-button clearbutton" type="button"></button>
@@ -59,7 +89,7 @@
                    <span class="popup__error input-title-error"></span>
                    <input class="popup__input popup__profession" id="input-link" type="url" name="profession" placeholder="Ссылка на картинку" required>
                    <span class="popup__error input-link-error"></span>
-                   <button class="popup__save-button clearbutton" type="submit"></button>
+                   <button class="popup__save-button popup__save-button_add clearbutton" type="submit"></button>
                 </form>  
             </div>
             <div class="popup__background"></div>
@@ -67,13 +97,17 @@
         <footer class="footer">
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
+        <!-- card template -->
         <template id="element">
             <li class="element__item">
                 <button class="element__delete-button clearbutton" type="button"></button>
                 <img class="element__photo" src="#" alt="#">
                 <div class="element__name-container">
                     <h3 class="element__title"></h3>
-                    <button class="element__like-button clearbutton" type="button"></button>
+                    <div class="element__like-button-container">
+                        <button class="element__like-button clearbutton" type="button"></button>
+                        <p class="element__like-counter"></p>
+                    </div>
                 </div>
             </li>
         </template>

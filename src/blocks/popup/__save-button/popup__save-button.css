@@ -1,10 +1,18 @@
 .popup__save-button {
-    background: url(../../../images/vectors/SubmitButton.svg);
+    background-image: url(../../../images/vectors/SubmitButton.svg);
     width: 358px;
     height: 50px;
-    background-size: contain;
+    background-position: left;
     transition: opacity 0.1s linear;
     border: 0;
+}
+
+.popup_sure .popup__save-button {
+    background-image: url(../../../images/vectors/yes.svg);
+}
+
+.popup_add-card .popup__save-button {
+    background-image: url(../../../images/vectors/create.svg);
 }
 
 .popup__save-button:hover {
@@ -14,8 +22,12 @@
 
 @media screen and (max-width: 530px) {
     .popup__save-button {
-        background: url(../../../images/vectors/SubmitButtonSmall.svg);
         width: 238px;
-        height: 46px;
+        height: 48px;
+    }
+
+    .popup_sure .popup__save-button {
+        content: "";
+        background: url(../../../images/vectors/yes.svg) no-repeat center;
     }
 }

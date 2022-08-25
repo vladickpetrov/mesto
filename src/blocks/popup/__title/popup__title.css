@@ -8,6 +8,10 @@
     padding-bottom: 54px;
 }
 
+.popup_sure .popup__title {
+    padding-bottom: 38px;
+}
+
 @media screen and (max-width: 530px) {
     .popup__title {
         font-weight: 900;
@@ -15,5 +19,9 @@
         line-height: 1.22;
         padding-top: 25px;
         padding-bottom: 75px;
+    }
+
+    .popup_sure .popup__title {
+        padding-bottom: 60px;
     }
 }

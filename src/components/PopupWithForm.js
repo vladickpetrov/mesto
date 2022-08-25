@@ -1,4 +1,6 @@
-import { Popup } from '../components/Popup'
+import { Popup } from '../components/Popup';
+import { currentId } from '../pages/index.js';
+
 export class PopupWithForm extends Popup {
   constructor(popupSelector, { renderer }){
       super(popupSelector);
@@ -10,9 +12,8 @@ export class PopupWithForm extends Popup {
   _getInputValues() {
     const formInputs = {};
     this.inputs.forEach((inputElement, id) => {
-      formInputs[`string${id}`] = inputElement.value;
+      formInputs[`string${id + 1}`] = inputElement.value;
     });
-    console.log(this.inputs)
     return formInputs
   }
 
@@ -21,5 +22,12 @@ export class PopupWithForm extends Popup {
       this._form.addEventListener('submit', () => {
         this._renderer(this._getInputValues());
       })
+  }
+
+  setEventListenersSure() {
+    super.setEventListeners();
+    this._form.addEventListener('submit', () => {
+      this._renderer(currentId)
+    })
   }
 }
