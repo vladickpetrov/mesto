@@ -11,10 +11,7 @@ import {
   buttonEdit, 
   buttonAdd, 
   buttonEditAvatar, 
-  userAvatar,
-  avatarButton,
-  nameButton,
-  cardButton } from '../utils/constants.js'
+  userAvatar } from '../utils/constants.js'
 import { UserInfo } from "../components/UserInfo.js";
 import { Api } from '../components/Api.js';
 import '../pages/index.css';
