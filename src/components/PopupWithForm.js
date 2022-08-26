@@ -1,5 +1,4 @@
 import { Popup } from '../components/Popup';
-import { currentId } from '../pages/index.js';
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, { renderer }){
@@ -7,6 +6,7 @@ export class PopupWithForm extends Popup {
       this._renderer = renderer;
       this._form = this._popup.querySelector('.popup__form');
       this.inputs = this._popup.querySelectorAll('.popup__input');
+      this._button = this._form.querySelector('.popup__save-button');
   }
 
   _getInputValues() {
@@ -24,10 +24,14 @@ export class PopupWithForm extends Popup {
       })
   }
 
-  setEventListenersSure() {
-    super.setEventListeners();
-    this._form.addEventListener('submit', () => {
-      this._renderer(currentId)
+  changeButtonStatus(str) {
+    this._button.textContent = str;
+  }
+
+  close() {
+    super.close();
+    this.inputs.forEach(item => {
+      item.value = '';
     })
   }
 }
