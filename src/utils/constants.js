@@ -11,8 +11,6 @@ export const configValid = {
   export const buttonEdit = document.querySelector('.profile__edit-button');
   export const buttonAdd = document.querySelector('.profile__add-button');
   export const buttonEditAvatar = document.querySelector('.profile__avatar');
-
-  export const userAvatar = document.querySelector('.profile__avatar-picture');
   
   const namePopUp = document.querySelector('.popup_profile');
   const cardPopUp = document.querySelector('.popup_add-card');
