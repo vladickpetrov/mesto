@@ -18,7 +18,6 @@ import { Api } from '../components/Api.js';
 import '../pages/index.css';
 
 export let myId;
-const currentId = {};
 let cardList = null;
 
 function createCard(name, link, likes, ownId, id, myId) {
@@ -27,8 +26,21 @@ function createCard(name, link, likes, ownId, id, myId) {
       image.open(name, link)
     },
     handleDeleteClick: () => {
-      currentId.id = id;
-      newSurePopup.open()
+      const newSurePopup = new PopupSure('.popup_sure', id, {
+        renderer: (id) => {
+          console.log(id);
+          api.deleteCard(id)
+            .then(res => {
+              newSurePopup.close();
+              card._element.remove();
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      });
+      newSurePopup.setEventListeners();
+      newSurePopup.open();
     },
     handleLikeClick: () => {
       let check = card._element.querySelector('.element__like-button_active');
@@ -121,7 +133,7 @@ export const newCardPopup = new PopupWithForm('.popup_add-card', {
       console.log(err);
       })
     .finally(() => {
-      newCardPopup.changeButtonStatus('');
+      newCardPopup.changeButtonStatus('Создать');
     })
   }
 });
@@ -143,7 +155,7 @@ export const newNamePopup = new PopupWithForm('.popup_profile', {
         console.log(err);
         })
       .finally(() => {
-        newNamePopup.changeButtonStatus('');
+        newNamePopup.changeButtonStatus('Сохранить');
       })  
   }
 });
@@ -162,25 +174,11 @@ export const newAvatarPopup = new PopupWithForm('.popup_avatar', {
         console.log(err);
       })
       .finally(() => {
-        newAvatarPopup.changeButtonStatus('');
+        newAvatarPopup.changeButtonStatus('Сохранить');
       })
   }
 });
 newAvatarPopup.setEventListeners();
-
-const newSurePopup = new PopupSure('.popup_sure', currentId, {
-  renderer: (id) => {
-    console.log(id);
-    api.deleteCard(id)
-      .then(res => {
-
-      })
-      .catch(err => {
-
-      });
-  }
-});
-newSurePopup.setEventListeners();
 
 buttonAdd.addEventListener('click', () => {
   newCardPopup.open();

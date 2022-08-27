@@ -4,7 +4,7 @@ export class PopupSure extends Popup {
   constructor(popupSelector, currentId, { renderer }, ){
       super(popupSelector);
       this._renderer = renderer;
-      this._currentId = currentId.id;
+      this._currentId = currentId;
       this._button = this._popup.querySelector('.popup__save-button');
   }
 
