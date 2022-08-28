@@ -426,7 +426,7 @@ template {
     background-image: url(87ed371465c7a6a1cd01.svg);
     width: 22px;
     height: 19px;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
     background-repeat: no-repeat;
     transition: opacity 0.1s linear;
 }
@@ -447,7 +447,6 @@ template {
 }
 .element__title {
     margin: 0;
-    padding-top: 25px;
     padding-left: 21px;
     max-width: 188px;
     white-space: nowrap;
@@ -459,9 +458,11 @@ template {
     line-height: 1.2;
 }
 .element__name-container {
+    max-height: 79px;
+    height: 100%;
     display: flex;
-    align-items: flex-end;
     justify-content: space-between;
+    align-items: center;
     padding-right: 20px;
 }
 
@@ -480,6 +481,18 @@ template {
 .element__delete-button:hover {
     opacity: 50%;
     cursor: pointer;
+}
+.element__like-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.element__like-counter {
+    color: black;
+    margin: 0;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.23;
 }
 .footer {
     width: 100%;
@@ -606,6 +619,7 @@ template {
     }
 }
 .profile__avatar {
+    position: relative;
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -718,6 +732,30 @@ template {
         line-height: 1.21;
     }
 }
+.profile__avatar-blur {
+    position: absolute;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-image: url(a086f758840ae814ecde.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 0;
+    bottom: 0;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    transition: opacity 0.2s linear;
+    cursor: pointer;
+}
+.profile__avatar-blur:hover {
+    opacity: 1;
+}
+.profile__avatar-picture {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
 .popup__background {
     position: absolute;
     cursor: pointer;
@@ -726,6 +764,29 @@ template {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+}
+.popup__save-button {
+    padding: 0;
+    outline: none;
+    width: 358px;
+    height: 50px;
+    background-color: black;
+    color: white;
+    transition: opacity 0.1s linear;
+    border: 0;
+    border-radius: 2px;
+}
+
+.popup__save-button:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
+
+@media screen and (max-width: 530px) {
+    .popup__save-button {
+        width: 238px;
+        height: 48px;
+    }
 }
 .popup__background_image {
     background-color: rgba(0, 0, 0, 0.9);
@@ -821,6 +882,14 @@ template {
     border-radius: 10px;
 }
 
+.popup_sure .popup__main-window {
+    max-height: 181px;
+}
+
+.popup_avatar .popup__main-window {
+    max-height: 272px;
+}
+
 @media screen and (max-width: 530px) {
     .popup__main-window {
         top: calc((100% - 322px) / 2);
@@ -841,25 +910,22 @@ template {
         margin-bottom: 45px;
     }
 }
-.popup__save-button {
-    background: url(5a054cf57ebd72b94c8e.svg);
-    width: 358px;
-    height: 50px;
-    background-size: contain;
-    transition: opacity 0.1s linear;
-    border: 0;
+.popup__save-button_disabled {
+    background-color: white;
+    border: 1px solid #000000;
+    color: #000000;
+    opacity: 0.2;
 }
 
-.popup__save-button:hover {
-    cursor: pointer;
-    opacity: 80%;
+.popup__save-button_disabled:hover {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.2;
 }
 
 @media screen and (max-width: 530px) {
-    .popup__save-button {
-        background: url(f6c97a525d3b529022ce.svg);
-        width: 238px;
-        height: 46px;
+    .popup__save-button_disabled {
+        background-size: 238px 46px;
     }
 }
 .popup__title {
@@ -872,6 +938,10 @@ template {
     padding-bottom: 54px;
 }
 
+.popup_sure .popup__title {
+    padding-bottom: 38px;
+}
+
 @media screen and (max-width: 530px) {
     .popup__title {
         font-weight: 900;
@@ -879,6 +949,10 @@ template {
         line-height: 1.22;
         padding-top: 25px;
         padding-bottom: 75px;
+    }
+
+    .popup_sure .popup__title {
+        padding-bottom: 60px;
     }
 }
 .popup_add-card {
@@ -896,7 +970,7 @@ template {
     height: 100%;
     left: 0;
     top: 0;
-    transition: opacity 0.7s, visibility 0.7s;
+    transition: opacity 0.3s, visibility 0.3s;
 }
 
 .popup_opened {
@@ -930,21 +1004,8 @@ template {
     visibility: visible;
     opacity: 1;
 }
-.popup__save-button_disabled {
-    background-image: url(14b377c4c290d5996ebf.svg);
-    background-repeat: no-repeat;
-}
 
-@media screen and (max-width: 530px) {
-    .popup__save-button_disabled {
-        background-size: 238px 46px;
-    }
-}
-
-.popup__save-button_disabled:hover {
-    pointer-events: none;
-    cursor: default;
-    opacity: 100%;
+.popup_sure {
 }
 .clearbutton {
     padding: 0;
@@ -956,6 +1017,10 @@ template {
 .input-link-error{
     position: absolute;
     top: 208px;
+}
+
+.popup_avatar .input-link-error {
+    top: 147px;
 }
 .input-name-error{
     position: absolute;
