@@ -56,7 +56,7 @@ export class Card {
     }
 
     _checkLikesAtStart() {
-      let check = this._likes.find(item => item._id == this._userId);
+      const check = this._likes.find(item => item._id == this._userId);
         if (check) {
           this._likeButton.classList.add('element__like-button_active');
         } else {
@@ -83,6 +83,6 @@ export class Card {
     }
   
     _deleteCard() {
-      this._handleDeleteClick();
+      this._handleDeleteClick(this.id);
     }
 }

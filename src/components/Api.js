@@ -1,8 +1,3 @@
-import { newCardPopup,
-    newNamePopup,
-    newSurePopup,
-    newAvatarPopup } from '../pages/index.js'
-
 export class Api {
     constructor(options) {
         this.link = options.baseUrl;

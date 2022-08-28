@@ -19,31 +19,21 @@ import '../pages/index.css';
 
 export let myId;
 let cardList = null;
+let currentCardId;
+let currentCard;
 
 function createCard(name, link, likes, ownId, id, myId) {
   const card = new Card(name, link, '#element', likes, ownId, id, myId, {
     handleCardClick: () => {
       image.open(name, link)
     },
-    handleDeleteClick: () => {
-      const newSurePopup = new PopupSure('.popup_sure', id, {
-        renderer: (id) => {
-          console.log(id);
-          api.deleteCard(id)
-            .then(res => {
-              newSurePopup.close();
-              card._element.remove();
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        }
-      });
-      newSurePopup.setEventListeners();
+    handleDeleteClick: (cardId) => {
+      currentCardId = cardId;
+      currentCard = card._element;
       newSurePopup.open();
     },
     handleLikeClick: () => {
-      let check = card._element.querySelector('.element__like-button_active');
+      const check = card._element.querySelector('.element__like-button_active');
         if (check) {
           api.deleteLike(id)
                 .then((res) => {
@@ -77,27 +67,24 @@ const api = new Api({
   }
 });
 
-api.getUserInfo()
-  .then(nameInfo => {
-    console.log('Информация о пользователе загружена');
+const startPromises = [api.getUserInfo(), api.getAllPictures()];
+
+Promise.all(startPromises)
+  .then(values => {
+    const nameInfo = values[0];
+    const cardInfo = values[1];
     userInfo.setUserInfo(nameInfo.name, nameInfo.about);
+    newNamePopup.putStartNameForm(nameInfo.name, nameInfo.about);
     myId = nameInfo._id;
     userInfo.setUserAvatar(nameInfo.avatar);
-  })
-    .catch(err => {
-      console.log(err);
-    });
 
-api.getAllPictures()
-  .then(cardsInfo => {
-    console.log('Информация о карточках загружена');
     cardList = new Section({
-      data: cardsInfo,
+      data: cardInfo,
       renderer: (item) => {
         cardList.setItemToEnd(createCard(item.name, item.link, item.likes, item.owner._id, item._id, myId));
         }
       }, '.element__grid');
-    cardList.renderItems();;
+    cardList.renderItems();
   })
   .catch(err => {
     console.log(err);
@@ -121,6 +108,21 @@ const userInfo = new UserInfo({
   avatarSelector: '.profile__avatar-picture'
 });
 
+const newSurePopup = new PopupSure('.popup_sure', {
+  renderer: () => {
+    api.deleteCard(currentCardId)
+      .then(res => {
+        newSurePopup.close();
+        console.log(res);
+        currentCard.remove();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+});
+newSurePopup.setEventListeners();
+
 export const newCardPopup = new PopupWithForm('.popup_add-card', {
   renderer: (formInputs) => {
     newCardPopup.changeButtonStatus('Сохранение...');
@@ -142,9 +144,9 @@ newCardPopup.setEventListeners();
 export const newNamePopup = new PopupWithForm('.popup_profile', {
   renderer: (formInputs) => {
     newNamePopup.changeButtonStatus('Сохранение...')
-    userInfo.setUserInfo(formInputs.string1, formInputs.string2);
     api.sendUserInfo(formInputs.string1, formInputs.string2)
       .then(() => {
+        userInfo.setUserInfo(formInputs.string1, formInputs.string2);
         newNamePopup.close();
         console.log('Данные о пользователе отправлены')
         const pageInfo = userInfo.getUserInfo();

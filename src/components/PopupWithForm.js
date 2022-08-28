@@ -28,6 +28,11 @@ export class PopupWithForm extends Popup {
     this._button.textContent = str;
   }
 
+  putStartNameForm(name, about) {
+    this.inputs[0].value = name;
+    this.inputs[1].value = about;
+  }
+
   close() {
     super.close();
     this.inputs.forEach(item => {
