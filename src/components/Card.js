@@ -83,6 +83,6 @@ export class Card {
     }
   
     _deleteCard() {
-      this._handleDeleteClick(this.id);
+      this._handleDeleteClick(this.id, this._element);
     }
 }

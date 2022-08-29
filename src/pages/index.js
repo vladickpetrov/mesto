@@ -20,17 +20,15 @@ import '../pages/index.css';
 export let myId;
 let cardList = null;
 let currentCardId;
-let currentCard;
 
 function createCard(name, link, likes, ownId, id, myId) {
   const card = new Card(name, link, '#element', likes, ownId, id, myId, {
     handleCardClick: () => {
       image.open(name, link)
     },
-    handleDeleteClick: (cardId) => {
+    handleDeleteClick: (cardId, cardElem) => {
       currentCardId = cardId;
-      currentCard = card._element;
-      newSurePopup.open();
+      newSurePopup.open(cardElem);
     },
     handleLikeClick: () => {
       const check = card._element.querySelector('.element__like-button_active');
@@ -109,12 +107,12 @@ const userInfo = new UserInfo({
 });
 
 const newSurePopup = new PopupSure('.popup_sure', {
-  renderer: () => {
+  renderer: (cardElem) => {
     api.deleteCard(currentCardId)
       .then(res => {
         newSurePopup.close();
         console.log(res);
-        currentCard.remove();
+        cardElem.remove();
       })
       .catch(err => {
         console.log(err);
